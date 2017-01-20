@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Progmobile2_TP1</string>
+    <string name="app_name">Guess The Color!</string>
+    <string name="text_whats_this_color">Whats this color?</string>
+    <string name="color_red">red</string>
+    <string name="color_pink">pink</string>
+    <string name="color_purple">purple</string>
+    <string name="color_blue">blue</string>
+    <string name="color_green">green</string>
+    <string name="color_brown">brown</string>
+    <string name="color_orange">orange</string>
 </resources>

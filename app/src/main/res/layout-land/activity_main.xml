@@ -8,7 +8,7 @@
     tools:context="com.csf.philb.progmobile2_tp1.MainActivity">
 
     <TextView
-        android:text="What's this color ?"
+        android:text="@string/text_whats_this_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtvWhatColor"

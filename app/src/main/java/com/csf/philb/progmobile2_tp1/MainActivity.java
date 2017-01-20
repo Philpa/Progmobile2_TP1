@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ColorRandomizer colorRandomizer;
 
+    private int[] colorResourceIdentifiers;
+
     private static final String CORRECT_ANSWER_ID_KEY = "CORRECT_ANSWER_ID";
     private static final String CORRECT_COLOR_KEY = "CORRECT_COLOR";
     private static final String POSSIBLE_ANSWERS_KEY = "POSSIBLE_ANSWERS";
@@ -69,6 +71,33 @@ public class MainActivity extends AppCompatActivity {
         setupGameBoard();
     }
 
+    private String getColorText(int colorId) {
+        if(colorId == R.color.red) {
+            return getResources().getString(R.string.color_red);
+        }
+        else if(colorId == R.color.pink) {
+            return getResources().getString(R.string.color_pink);
+        }
+        else if(colorId == R.color.purple) {
+            return getResources().getString(R.string.color_purple);
+        }
+        else if(colorId == R.color.blue) {
+            return getResources().getString(R.string.color_blue);
+        }
+        else if(colorId == R.color.green) {
+            return getResources().getString(R.string.color_green);
+        }
+        else if(colorId == R.color.brown) {
+            return getResources().getString(R.string.color_brown);
+        }
+        else if(colorId == R.color.orange) {
+            return getResources().getString(R.string.color_orange);
+        }
+        else {
+            return "";
+        }
+    }
+
     private void startGameBoard(){
         colorRandomizer.randomize();
 
@@ -80,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         PossibleAnswer[] possibleAnswers = colorRandomizer.getPossibleAnswers();
         for(int i = 0; i < possibleAnswers.length; i++){
-            answerTextViews[i].setText(possibleAnswers[i].nameDisplayed);
+            answerTextViews[i].setText(getColorText(possibleAnswers[i].nameDisplayed));
             answerTextViews[i].setTextColor(getResources().getColor(possibleAnswers[i].nameColor));
         }
     }

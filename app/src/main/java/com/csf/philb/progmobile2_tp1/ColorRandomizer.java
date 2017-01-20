@@ -1,21 +1,21 @@
 package com.csf.philb.progmobile2_tp1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class ColorRandomizer {
 
     private Random random;
-    private ArrayList<String> colors;
+    private int[] colors;
     private int correctAnswerId;
     private int correctColor;
-    private String correctColorName;
     private PossibleAnswer[] possibleAnswers;
 
     public ColorRandomizer(){
         random = new Random();
-        colors = new ArrayList<String>();
-        populateColorsList();
+        colors = createColorsArray();
         possibleAnswers = new PossibleAnswer[4];
         for(int i = 0; i < possibleAnswers.length; i++){
             possibleAnswers[i] = new PossibleAnswer();
@@ -46,82 +46,54 @@ public class ColorRandomizer {
         this.possibleAnswers = possibleAnswers;
     }
 
-    private void cloneColorsArray(ArrayList<String> receiver){
-        for(int i = 0; i < colors.size(); i++){
-            receiver.add(i, colors.get(i));
-        }
-    }
-
     public void randomize(){
-        ArrayList<String> currentRoundColorNamePossibilities = new ArrayList<String>();
-        ArrayList<String> currentRoundNameDisplayedPossibilities = new ArrayList<String>();
-        cloneColorsArray(currentRoundColorNamePossibilities);
-        cloneColorsArray(currentRoundNameDisplayedPossibilities);
+        List<Integer> currentRoundColorNamePossibilities = convertIntArrayToIntegerList(colors);
+        List<Integer> currentRoundNameDisplayedPossibilities = convertIntArrayToIntegerList(colors);
 
         correctAnswerId = random.nextInt(4);
-        correctColorName = randomColorName();
-        correctColor = getColorId(correctColorName);
-        currentRoundNameDisplayedPossibilities.remove(correctColorName);
-        possibleAnswers[correctAnswerId].nameDisplayed = correctColorName;
+        correctColor = getRandomColor();
+        currentRoundNameDisplayedPossibilities.remove(new Integer(correctColor));
+        possibleAnswers[correctAnswerId].nameDisplayed = correctColor;
 
         for(int i = 0; i < possibleAnswers.length; i++){
             if(i != correctAnswerId){
-                String newColorName = randomColorName();
-                while(!currentRoundNameDisplayedPossibilities.contains(newColorName)) {
-                    newColorName = randomColorName();
+                int newColor = getRandomColor();
+                while(!currentRoundNameDisplayedPossibilities.contains(newColor)) {
+                    newColor = getRandomColor();
                 }
-                possibleAnswers[i].nameDisplayed = newColorName;
-                currentRoundNameDisplayedPossibilities.remove(newColorName);
+                possibleAnswers[i].nameDisplayed = newColor;
+                currentRoundNameDisplayedPossibilities.remove(new Integer(newColor));
             }
 
-            String newColorName = randomColorName();
-            while(newColorName == possibleAnswers[i].nameDisplayed || !currentRoundColorNamePossibilities.contains(newColorName)){
-                newColorName = randomColorName();
+            int newColor = getRandomColor();
+            while(newColor == possibleAnswers[i].nameDisplayed || !currentRoundColorNamePossibilities.contains(newColor)){
+                newColor = getRandomColor();
             }
-            currentRoundColorNamePossibilities.remove(newColorName);
-            possibleAnswers[i].nameColor = getColorId(newColorName);
+            currentRoundColorNamePossibilities.remove(new Integer(newColor));
+            possibleAnswers[i].nameColor = newColor;
         }
     }
 
-    private void populateColorsList(){
-        colors.add("red");
-        colors.add("pink");
-        colors.add("purple");
-        colors.add("blue");
-        colors.add("green");
-        colors.add("brown");
-        colors.add("orange");
+    private int[] createColorsArray(){
+        return new int[]{R.color.red,
+                R.color.pink,
+                R.color.purple,
+                R.color.blue,
+                R.color.green,
+                R.color.brown,
+                R.color.orange};
     }
 
-    private int getColorId(String color){
-        if(color == "red"){
-            return R.color.red;
+    private List<Integer> convertIntArrayToIntegerList(int[] array) {
+        List<Integer> list = new ArrayList<Integer>();
+        for(int i = 0; i < array.length; i++) {
+            list.add(array[i]);
         }
-        else if(color == "pink"){
-            return R.color.pink;
-        }
-        else if(color == "purple"){
-            return R.color.purple;
-        }
-        else if(color == "blue"){
-            return R.color.blue;
-        }
-        else if(color == "green"){
-            return R.color.green;
-        }
-        else if(color == "brown"){
-            return R.color.brown;
-        }
-        else if(color == "orange"){
-            return R.color.orange;
-        }
-        else{
-            return 0;
-        }
+        return list;
     }
 
-    private String randomColorName(){
-        return colors.get(random.nextInt(colors.size()));
+    private int getRandomColor(){
+        return colors[random.nextInt(colors.length)];
     }
 
     public boolean verifyAnswer(int answerId) {

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Devinez la couleur!</string>
+    <string name="text_whats_this_color">Quelle est cette couleur?</string>
+    <string name="color_red">rouge</string>
+    <string name="color_pink">rose</string>
+    <string name="color_purple">violet</string>
+    <string name="color_blue">bleu</string>
+    <string name="color_green">vert</string>
+    <string name="color_brown">brun</string>
+    <string name="color_orange">orange</string>
+</resources>

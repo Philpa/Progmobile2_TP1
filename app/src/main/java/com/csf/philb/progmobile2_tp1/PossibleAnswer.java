@@ -5,9 +5,5 @@ import java.io.Serializable;
 public class PossibleAnswer implements Serializable{
 
     public int nameColor;
-    public String nameDisplayed;
-
-    public PossibleAnswer(){
-        nameDisplayed = "";
-    }
+    public int nameDisplayed;
 }
