@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int[] colorResourceIdentifiers;
 
+    //BEN_REVIEW : Mettre les constantes en premier dans les fichiers. C'est plus courant ainsi.
     private static final String CORRECT_ANSWER_ID_KEY = "CORRECT_ANSWER_ID";
     private static final String CORRECT_COLOR_KEY = "CORRECT_COLOR";
     private static final String POSSIBLE_ANSWERS_KEY = "POSSIBLE_ANSWERS";
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt(CORRECT_ANSWER_ID_KEY, colorRandomizer.getCorrectAnswerId());
         outState.putInt(CORRECT_COLOR_KEY, colorRandomizer.getCorrectColor());
+        //BEN_REVIEW : Préfère "Parcelable" à "Serializable". Parcelable est plus performant, mais nécessite plus de travail.
         outState.putSerializable(POSSIBLE_ANSWERS_KEY, colorRandomizer.getPossibleAnswers());
     }
 
@@ -105,11 +107,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupGameBoard() {
+        //BEN_CORRECTION : Utilisation d'une méthode "deprecated".
         imgvColorPreview.setColorFilter(getResources().getColor(colorRandomizer.getCorrectColor()));
 
         PossibleAnswer[] possibleAnswers = colorRandomizer.getPossibleAnswers();
         for(int i = 0; i < possibleAnswers.length; i++){
             answerTextViews[i].setText(getColorText(possibleAnswers[i].nameDisplayed));
+            //BEN_CORRECTION : Utilisation d'une méthode "deprecated".
             answerTextViews[i].setTextColor(getResources().getColor(possibleAnswers[i].nameColor));
         }
     }
@@ -145,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
     private void verifyAnswer(int answerId) {
         if(colorRandomizer.verifyAnswer(answerId)) {
             soundGoodPing.start();
+            //BEN_CORRECTION : Dans tous les cas, le "GameBoard" doit être modifié. C'est demandé dans l'énoncé.
             startGameBoard();
         }
         else {

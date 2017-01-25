@@ -65,6 +65,9 @@ public class ColorRandomizer {
                 currentRoundNameDisplayedPossibilities.remove(new Integer(newColor));
             }
 
+            //BEN_REVIEW : Peu optimal en terme d'utilisation de la puissance de calcul...
+            //             Non pénalisé, car ce n'est pas le but du travail, mais je tiens à le souligner.
+            //             Me voir pour les explications détaillées.
             int newColor = getRandomColor();
             while(newColor == possibleAnswers[i].nameDisplayed || !currentRoundColorNamePossibilities.contains(newColor)){
                 newColor = getRandomColor();
@@ -74,6 +77,7 @@ public class ColorRandomizer {
         }
     }
 
+    //BEN_CORRECTION : Données à recevoir à la construction, car R est une classe faisant partie du framework Android.
     private int[] createColorsArray(){
         return new int[]{R.color.red,
                 R.color.pink,
